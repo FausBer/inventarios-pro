@@ -1,3 +1,4 @@
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import styled, { ThemeProvider } from "styled-components";
 import {
   AuthContextProvider,
@@ -9,6 +10,7 @@ import {
 } from "./index";
 import { createContext, useState } from "react";
 import { Device } from "./styles/breackpoints";
+
 export const ThemeContext = createContext(null);
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
                 <MyRoutes />
               </section>
             </Container>
+            <ReactQueryDevtools initialIsOpen={false} />
           </AuthContextProvider>
         </ThemeProvider>
       </ThemeContext.Provider>
