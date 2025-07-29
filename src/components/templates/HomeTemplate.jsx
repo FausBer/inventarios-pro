@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Header, Title } from "../../index";
+import { Header, Title, BannerEmpresa, useEmpresaStore } from "../../index";
 import { useState } from "react";
 export function HomeTemplate() {
   const [state, setState] = useState(false);
@@ -13,12 +13,15 @@ export function HomeTemplate() {
       <section className="area1">
         <Title>Tu empresa</Title>
       </section>
-      <section className="area2"></section>
-      <section className="main"></section>
+      <section className="main">
+        <BannerEmpresa />
+      </section>
     </Container>
   );
 }
 const Container = styled.div`
+  position: relative;
+  overflow: hidden;
   height: 100vh;
   width: 100%;
   background-color: ${({ theme }) => theme.bgtotal};
@@ -28,30 +31,19 @@ const Container = styled.div`
   grid-template:
     "header" 100px
     "area1" 100px
-    "area2" 100px
     "main" auto;
   .header {
     grid-area: header;
-    background-color: rgba(103, 80, 255, 0.1);
     display: flex;
     align-items: center;
   }
   .area1 {
     grid-area: area1;
-    background-color: rgba(103, 80, 255, 0.2);
     display: flex;
     align-items: center;
-  }
-  .area2 {
-    grid-area: area2;
-    background-color: rgba(103, 80, 255, 0.3);
-    display: flex;
-    align-items: center;
+    justify-content: end;
   }
   .main {
     grid-area: main;
-    background-color: rgba(103, 80, 255, 0.4);
-    display: flex;
-    align-items: center;
   }
 `;
