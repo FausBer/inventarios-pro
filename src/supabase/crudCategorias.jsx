@@ -29,7 +29,7 @@ export async function EliminarCategorias(p) {
 export async function EditarCategorias(p) {
   const { error } = await supabase.from("categorias").update(p).eq("id", p.id);
   if (error) {
-    alert("Error al editar categorias", error.message);
+    alert("Error al editar Categorias", error.message);
   }
 }
 export async function BuscarCategorias(p) {

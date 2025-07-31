@@ -12,6 +12,7 @@ import {
   ContentAccionesTabla,
   Paginacion,
   useCategoriasStore,
+  useMarcaStore,
   v,
 } from "../../../index";
 import Swal from "sweetalert2";

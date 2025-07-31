@@ -4,6 +4,7 @@ import { v } from "../../../styles/variables";
 import {
   InputText,
   Btnsave,
+  useMarcaStore,
   ConvertirCapitalize,
   useCategoriasStore,
 } from "../../../index";

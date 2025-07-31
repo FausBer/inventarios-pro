@@ -6,8 +6,10 @@ import {
   Header,
   RegistrarCategorias,
   TablaCategorias,
+  TablaMarca,
   Title,
   useCategoriasStore,
+  useMarcaStore,
   v,
 } from "../../index";
 import { useState } from "react";
