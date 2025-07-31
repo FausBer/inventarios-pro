@@ -13,6 +13,7 @@ import {
   ContentAccionesTabla,
   Paginacion,
   useProductosStore,
+  useDolarStore,
   v,
 } from "../../../index";
 import Swal from "sweetalert2";
@@ -85,23 +86,35 @@ export function TablaProductos({
     },
     {
       accessorKey: "precioventa",
-      header: "P.venta",
+      header: "Precio Unitario",
       enableSorting: false,
       cell: (info) => (
-        <td data-title="P.venta" className="ContentCell">
+        <td data-title="Precio Unitario" className="ContentCell">
           <span>{info.getValue()}</span>
         </td>
       ),
     },
     {
-      accessorKey: "preciocompra",
-      header: "P.compra",
+      accessorKey: "precioventa",
+      header: "Precio Unitario USD",
       enableSorting: false,
-      cell: (info) => (
-        <td data-title="P.compra" className="ContentCell">
-          <span>{info.getValue()}</span>
-        </td>
-      ),
+      cell: (info) => {
+        // Accedemos a la cotización del dólar desde el store de Zustand
+        const { cotizacion } = useDolarStore.getState();
+        const precioARS = parseFloat(info.getValue());
+
+        // Calculamos el precio en dólares
+        const precioUSD =
+          cotizacion && cotizacion !== 0
+            ? (precioARS / cotizacion).toFixed(2)
+            : "-";
+
+        return (
+          <td data-title="Precio Unitario USD" className="ContentCell">
+            <span>{precioUSD !== "-" ? `$${precioUSD}` : "Cargando..."}</span>
+          </td>
+        );
+      },
     },
     {
       accessorKey: "categoria",

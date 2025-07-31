@@ -55,6 +55,7 @@ export * from "./pages/Productos";
 export * from "./routers/routes";
 export * from "./store/AuthStore";
 export * from "./store/CategoriasStore";
+export * from "./store/DolarStore";
 export * from "./store/EmpresaStore";
 export * from "./store/MarcaStore";
 export * from "./store/ProductosStore";
