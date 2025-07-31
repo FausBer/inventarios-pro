@@ -39,7 +39,7 @@ export function MarcaTemplate({ data }) {
       </header>
       <section className="area1">
         <ContentFiltro>
-          <Title>Insumos</Title>
+          <Title>Proveedores</Title>
           <Btnfiltro
             funcion={nuevoRegistro}
             bgcolor="#f6f3f3"

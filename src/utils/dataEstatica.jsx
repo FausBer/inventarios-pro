@@ -59,7 +59,7 @@ export const TemasData = [
 //data configuracion
 export const DataModulosConfiguracion = [
   {
-    title: "Productos",
+    title: "Insumos",
     subtitle: "registra tus productos",
     icono: "https://i.ibb.co/85zJ6yG/caja-del-paquete.png",
     link: "/configurar/productos",
@@ -84,7 +84,7 @@ export const DataModulosConfiguracion = [
     link: "/configurar/categorias",
   },
   {
-    title: "Insumos",
+    title: "Proveedores",
     subtitle: "gestiona tus marcas",
     icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
     link: "/configurar/marca",

@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { v } from "../../../styles/variables";
-import { InputText, Btnsave, useMarcaStore,ConvertirCapitalize } from "../../../index";
+import {
+  InputText,
+  Btnsave,
+  useMarcaStore,
+  ConvertirCapitalize,
+} from "../../../index";
 import { useForm } from "react-hook-form";
 import { useEmpresaStore } from "../../../store/EmpresaStore";
 export function RegistrarMarca({ onClose, dataSelect, accion }) {
@@ -16,13 +21,17 @@ export function RegistrarMarca({ onClose, dataSelect, accion }) {
     if (accion === "Editar") {
       const p = {
         id: dataSelect.id,
-        descripcion:ConvertirCapitalize( data.nombre),
+        descripcion: ConvertirCapitalize(data.empresa),
+        nombre: ConvertirCapitalize(data.nombre),
+        telefono: ConvertirCapitalize(data.telefono),
       };
       await editarMarca(p);
       onClose();
     } else {
       const p = {
-        _descripcion:ConvertirCapitalize( data.nombre),
+        _descripcion: ConvertirCapitalize(data.empresa),
+        _nombre: ConvertirCapitalize(data.nombre),
+        _telefono: ConvertirCapitalize(data.telefono),
         _idempresa: dataempresa.id,
       };
       await insertarMarca(p);
@@ -57,11 +66,42 @@ export function RegistrarMarca({ onClose, dataSelect, accion }) {
                   defaultValue={dataSelect.descripcion}
                   type="text"
                   placeholder=""
+                  {...register("empresa", {
+                    required: true,
+                  })}
+                />
+                <label className="form__label">Empresa</label>
+                {errors.nombre?.type === "required" && <p>Campo requerido</p>}
+              </InputText>
+            </article>
+            <article>
+              <InputText icono={<v.iconomarca />}>
+                <input
+                  className="form__field"
+                  defaultValue={dataSelect.nombre}
+                  type="text"
+                  placeholder=""
                   {...register("nombre", {
                     required: true,
                   })}
                 />
-                <label className="form__label">marca</label>
+                <label className="form__label">Nombre</label>
+                {errors.nombre?.type === "required" && <p>Campo requerido</p>}
+              </InputText>
+            </article>
+
+            <article>
+              <InputText icono={<v.iconomarca />}>
+                <input
+                  className="form__field"
+                  defaultValue={dataSelect.telefono}
+                  type="text"
+                  placeholder=""
+                  {...register("telefono", {
+                    required: true,
+                  })}
+                />
+                <label className="form__label">Telefono</label>
                 {errors.nombre?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>

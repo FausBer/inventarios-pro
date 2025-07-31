@@ -120,10 +120,10 @@ export function TablaProductos({
     },
     {
       accessorKey: "marca",
-      header: "Marca",
+      header: "Proveedor",
       enableSorting: false,
       cell: (info) => (
-        <td data-title="Marca" className="ContentCell">
+        <td data-title="Proveedor" className="ContentCell">
           <span>{info.getValue()}</span>
         </td>
       ),
