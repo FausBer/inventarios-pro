@@ -1,4 +1,5 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import styled, { ThemeProvider } from "styled-components";
 import {
   AuthContextProvider,
@@ -9,21 +10,20 @@ import {
   MenuHambur,
   Login,
 } from "./index";
-import { createContext, use, useState } from "react";
+
+import { createContext, useState } from "react";
 import { Device } from "./styles/breackpoints";
 import { useLocation } from "react-router-dom";
 
 export const ThemeContext = createContext(null);
-
 function App() {
   const [themeuse, setTheme] = useState("dark");
   const theme = themeuse === "light" ? "light" : "dark";
   const themeStyle = theme === "light" ? Light : Dark;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { pathname } = useLocation();
-
   return (
-    <div>
+    <>
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <ThemeProvider theme={themeStyle}>
           <AuthContextProvider>
@@ -45,11 +45,12 @@ function App() {
                 </section>
               </Container>
             )}
+
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthContextProvider>
         </ThemeProvider>
       </ThemeContext.Provider>
-    </div>
+    </>
   );
 }
 const Container = styled.main`

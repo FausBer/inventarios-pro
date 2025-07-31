@@ -22,36 +22,36 @@ import { SlGraph } from "react-icons/sl";
 import { BsBarChartLine } from "react-icons/bs";
 import { AiOutlineCalculator } from "react-icons/ai";
 import { BsCalendarCheck } from "react-icons/bs";
-import { IoIosArrowForward } from "react-icons/io";
-import { GrFormPrevious, GrCaretNext } from "react-icons/gr";
-import { MdOutlineBorderAll } from "react-icons/md";
+import {IoIosArrowForward} from "react-icons/io"
+import {GrFormPrevious,GrCaretNext} from "react-icons/gr"
+import {MdOutlineBorderAll} from "react-icons/md"
 import { MdAlternateEmail } from "react-icons/md";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { MdDriveFileRenameOutline } from "react-icons/md";
-import { RiStockLine } from "react-icons/ri";
-import { BiBellMinus } from "react-icons/bi";
-import { AiOutlineBarcode } from "react-icons/ai";
-import { DiCodepen } from "react-icons/di";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
-import { CiMoneyBill } from "react-icons/ci";
-import { TbBrandBitbucket } from "react-icons/tb";
-import { MdOutlineCategory } from "react-icons/md";
-import { FaBuilding } from "react-icons/fa";
-import { TbReportAnalytics } from "react-icons/tb";
+import {RiLockPasswordLine} from "react-icons/ri"
+import {MdDriveFileRenameOutline} from "react-icons/md"
+import {RiStockLine} from "react-icons/ri"
+import {BiBellMinus} from "react-icons/bi"
+import {AiOutlineBarcode} from "react-icons/ai"
+import {DiCodepen} from "react-icons/di"
+import {FaRegMoneyBillAlt} from "react-icons/fa"
+import {CiMoneyBill} from "react-icons/ci"
+import {TbBrandBitbucket} from "react-icons/tb"
+import {MdOutlineCategory} from "react-icons/md"
+import {FaBuilding} from "react-icons/fa"
+import {TbReportAnalytics} from "react-icons/tb"
 export const v = {
-  iconoreportes: TbReportAnalytics,
-  iconoempresa: FaBuilding,
-  iconocategorias: MdOutlineCategory,
-  iconomarca: TbBrandBitbucket,
-  iconoprecioventa: FaRegMoneyBillAlt,
-  iconopreciocompra: CiMoneyBill,
-  iconocodigointerno: DiCodepen,
-  iconocodigobarras: AiOutlineBarcode,
-  iconostockminimo: BiBellMinus,
-  iconostock: RiStockLine,
-  icononombre: MdDriveFileRenameOutline,
-  iconoemail: MdAlternateEmail,
-  iconopass: RiLockPasswordLine,
+  iconoreportes : TbReportAnalytics,
+  iconoempresa:FaBuilding,
+  iconocategorias:MdOutlineCategory,
+  iconomarca:TbBrandBitbucket,
+  iconoprecioventa:FaRegMoneyBillAlt,
+  iconopreciocompra:CiMoneyBill,
+  iconocodigointerno:DiCodepen,
+  iconocodigobarras:AiOutlineBarcode,
+  iconostockminimo:BiBellMinus,
+  iconostock:RiStockLine,
+  icononombre:MdDriveFileRenameOutline,
+  iconoemail:MdAlternateEmail,
+  iconopass:RiLockPasswordLine,
   sidebarWidth: `300px`,
   sidebarWidthInitial: `10vw`,
   smSpacing: `8px`,
@@ -103,10 +103,10 @@ export const v = {
   iconocalculadora: AiOutlineCalculator,
   iconocheck: BsCalendarCheck,
   colorSecundario: `#DAC1FF`,
-  iconoflechaderecha: IoIosArrowForward,
-  colorselector: "#BF94FF",
-  rgbafondos: "rgba(210, 110, 249, 0.1)",
-  iconoprev: GrFormPrevious,
-  icononext: GrCaretNext,
-  iconotodos: MdOutlineBorderAll,
+  iconoflechaderecha:IoIosArrowForward,
+  colorselector:"#BF94FF",
+  rgbafondos:"rgba(210, 110, 249, 0.1)",
+  iconoprev:GrFormPrevious,
+  icononext:GrCaretNext,
+  iconotodos:MdOutlineBorderAll
 };

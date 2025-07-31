@@ -10,7 +10,10 @@ export function MenuHambur() {
       <NavBar>
         <section>
           <HamburgerMenu onClick={() => setClick(!click)}>
-            <label className={click ? "toggle active" : "toggle"}>
+            <label
+              className={click ? "toggle active" : "toggle"}
+             
+            >
               <div className="bars" id="bar1"></div>
               <div className="bars" id="bar2"></div>
               <div className="bars" id="bar3"></div>
@@ -50,18 +53,15 @@ export function MenuHambur() {
     </Container>
   );
 }
-
 const Container = styled.div`
-  background-color: ${({ theme }) => theme.body};
+  background-color: ${(props) => props.theme.body};
 `;
-
 const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100vh;
 `;
-
 const HamburgerMenu = styled.span`
   position: fixed;
   top: 2rem;
@@ -85,6 +85,7 @@ const HamburgerMenu = styled.span`
       transition-duration: 0.5s;
       transform: rotate(180deg);
       .bars {
+        
         position: absolute;
         transition-duration: 0.5s;
       }
@@ -108,7 +109,7 @@ const HamburgerMenu = styled.span`
   .bars {
     width: 100%;
     height: 4px;
-    background-color: ${({ theme }) => theme.text};
+    background-color:${({theme})=>theme.text};
     border-radius: 4px;
   }
 
@@ -121,7 +122,6 @@ const HamburgerMenu = styled.span`
     width: 70%;
   }
 `;
-
 const Menu = styled.div`
   display: flex;
   align-items: center;
@@ -135,7 +135,7 @@ const Menu = styled.div`
   right: 0;
   bottom: 0;
   width: 100vw;
-  background-color: ${(props) => `rbga (${props.theme.bodyRgba},0.85)`};
+  background-color: ${(props) => `rgba(${props.theme.bodyRgba},0.85)`};
   backdrop-filter: blur(3px);
   transform: ${(props) =>
     props.$click == "true" ? "translateY(0)" : "translateY(1000%)"};
@@ -144,6 +144,7 @@ const Menu = styled.div`
     &:hover {
       background: ${(props) => props.theme.bgAlpha};
     }
+    
     .Links {
       width: 100vw;
       display: flex;
@@ -151,13 +152,15 @@ const Menu = styled.div`
       text-decoration: none;
       color: ${(props) => props.theme.text};
       height: 80px;
-      .Linksicon {
+      .Linkicon {
         padding: ${v.smSpacing} ${v.mdSpacing};
         display: flex;
         svg {
           font-size: 25px;
         }
+        
       }
+
     }
   }
 `;

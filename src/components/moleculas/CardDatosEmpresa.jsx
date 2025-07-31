@@ -15,11 +15,11 @@ export function CardDatosEmpresa({ titulo, valor, img }) {
   );
 }
 const Container = styled.div`
-  z-index: 1;
+ z-index:1;
   width: 100%;
   .card {
-    position: relative;
-
+   position:relative;
+   
     background: #fffefe;
     padding: 1rem;
     border-radius: 1rem;

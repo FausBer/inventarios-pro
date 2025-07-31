@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { v, Btnsave } from "../../../index";
 export function SidebarCard() {
+  
   return (
     <Container>
       <span className="icon">{<v.iconoayuda />}</span>
@@ -9,7 +10,7 @@ export function SidebarCard() {
         <div className="circle2"></div>
         <h3>Cerrar sesión</h3>
         <div className="contentBtn">
-          <Btnsave titulo="Cerrar ..." bgcolor="#f8f2fd" />
+          <Btnsave titulo="Cerrar ..." bgcolor="#f8f2fd"  />
         </div>
       </div>
     </Container>
@@ -20,6 +21,7 @@ const Container = styled.div`
   padding: 1rem;
   text-align: center;
   position: relative;
+
 
   .icon {
     position: absolute;
@@ -64,8 +66,8 @@ const Container = styled.div`
       color: #000;
     }
     .contentBtn {
-      position: relative;
-      margin-left: -8px;
+      position:relative;
+      margin-left:-8px;
     }
   }
 `;

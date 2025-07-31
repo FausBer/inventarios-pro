@@ -11,12 +11,15 @@ export function BannerEmpresa() {
           {<v.iconoempresa />}
           {dataempresa.empresa?.nombre}
         </span>
-        <div className="context-text">StockPRO te mantiene informado</div>
+        <div className="content-text">
+          WBManager te mantiene siempre informado.
+        </div>
         <ContentCards>
           <CardDatosEmpresa
             titulo="Moneda"
             valor={dataempresa.empresa?.simbolomoneda}
           />
+
           <CardDatosEmpresa titulo="Usuarios" valor={contadorusuarios} />
         </ContentCards>
       </div>
@@ -94,6 +97,7 @@ export function BannerEmpresa() {
 const Container = styled.div`
   width: 100%;
   height: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;

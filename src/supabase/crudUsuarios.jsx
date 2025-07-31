@@ -10,12 +10,11 @@ export const InsertarUsuarios = async (p) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Error al insertar el usuario: " + error.message,
+      text: "Error al insertar usuario " + error.message,
     });
   }
   if (data) return data;
 };
-
 export const MostrarUsuarios = async () => {
   const idAuthSupabase = await ObtenerIdAuthSupabase();
   const { error, data } = await supabase
@@ -23,6 +22,7 @@ export const MostrarUsuarios = async () => {
     .select()
     .eq("idauth", idAuthSupabase)
     .maybeSingle();
+
   if (data) {
     return data;
   }

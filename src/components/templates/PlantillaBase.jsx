@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Header } from "../../index";
 import { useState } from "react";
-export function pagina() {
+export function PlantillaBase() {
   const [state, setState] = useState(false);
   return (
     <Container>
@@ -17,9 +17,9 @@ export function pagina() {
   );
 }
 const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
-  background-color: ${({ theme }) => theme.bgtotal};
+  background-color: ${(props) => props.theme.bgtotal};
   color: ${({ theme }) => theme.text};
   display: grid;
   padding: 15px;
@@ -30,26 +30,24 @@ const Container = styled.div`
     "main" auto;
   .header {
     grid-area: header;
-    background-color: rgba(103, 80, 255, 0.1);
+    background-color: rgba(103, 93, 241, 0.14);
     display: flex;
     align-items: center;
   }
   .area1 {
     grid-area: area1;
-    background-color: rgba(103, 80, 255, 0.2);
+    background-color: rgba(229, 67, 26, 0.14);
     display: flex;
     align-items: center;
   }
   .area2 {
     grid-area: area2;
-    background-color: rgba(103, 80, 255, 0.3);
+    background-color: rgba(77, 237, 106, 0.14);
     display: flex;
     align-items: center;
   }
   .main {
     grid-area: main;
-    background-color: rgba(103, 80, 255, 0.4);
-    display: flex;
-    align-items: center;
+    background-color: rgba(179, 46, 241, 0.14);
   }
 `;

@@ -6,8 +6,8 @@ export function FooterLogin() {
       <section className="lock">
         <GiPadlock />
         <span>
-          Esta es una página de prueba, si tienes alguna inquietud puedes
-          contactarnos a través de nuestros canales oficiales, puedes llamarnos
+          Esta es una página segura de codigo369. Si tienes dudas sobre la
+          autenticidad de la web, comunícate con
           <br /> nosotros al 311-9898 o a través de nuestros medios digitales.
         </span>
       </section>
@@ -16,7 +16,7 @@ export function FooterLogin() {
         <div className="separador"></div>
         <span>Todos los derechos reservados</span>
         <div className="separador"></div>
-        <span>© 2025 wb-medica.com</span>
+        <span>© 2023 codigo369.com</span>
       </section>
     </Container>
   );

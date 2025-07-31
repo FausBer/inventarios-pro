@@ -4,11 +4,14 @@ import {
   ErrorMolecula,
   Home,
   Login,
+  Marca,
   ProtectedRoute,
   SpinnerLoader,
   UserAuth,
   useEmpresaStore,
   useUsuariosStore,
+  Categorias,
+  Productos,
 } from "../index";
 import { useQuery } from "@tanstack/react-query";
 
@@ -42,6 +45,9 @@ export function MyRoutes() {
       <Route element={<ProtectedRoute user={user} redirectTo="/login" />}>
         <Route path="/" element={<Home />} />
         <Route path="/configurar" element={<Configuracion />} />
+        <Route path="/configurar/marca" element={<Marca />} />
+        <Route path="/configurar/categorias" element={<Categorias />} />
+        <Route path="/configurar/productos" element={<Productos />} />
       </Route>
     </Routes>
   );

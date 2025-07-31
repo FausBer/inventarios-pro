@@ -1,8 +1,8 @@
 import styled from "styled-components";
-export function ErrorMolecula({ mensaje }) {
+export function ErrorMolecula({mensaje}) {
   return (
     <Container>
-      <span>Error...{mensaje}</span>
+      <span>Error... {mensaje}</span>
     </Container>
   );
 }
