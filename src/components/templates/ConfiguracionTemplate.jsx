@@ -1,14 +1,20 @@
 import styled from "styled-components";
 import fondocuadros from "../../assets/fondocuadros.svg";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DataModulosConfiguracion } from "../../utils/dataEstatica";
+import { Mensaje } from "../moleculas/Mensaje";
 export function ConfiguracionTemplate() {
   return (
-    <Container>    
+    <Container>
       <div id="cards">
         {DataModulosConfiguracion.map((item, index) => {
           return (
-            <Link to={item.link} className={item.state?"card": "card false"} key={index}>
+            <Link
+              to={item.state ? item.link : ""}
+              className={item.state ? "card" : "card false"}
+              key={index}
+            >
+              <Mensaje state={item.state} />
               <div class="card-content">
                 <div class="card-image">
                   <img src={item.icono} />
@@ -83,15 +89,15 @@ const Container = styled.div`
         }
       }
     }
-    &.false{
+    &.false {
       &:hover {
-      border: 1px solid red;
-      .card-image {
-        img {
-          filter: grayscale(0);
+        border: 1px solid red;
+        .card-image {
+          img {
+            filter: grayscale(0);
+          }
         }
       }
-    }
     }
   }
 
@@ -251,4 +257,3 @@ const Container = styled.div`
     bottom: 10px;
   }
 `;
-

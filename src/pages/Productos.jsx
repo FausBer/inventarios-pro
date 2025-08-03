@@ -1,14 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import {
+  BloqueoPagina,
   ProductosTemplate,
   SpinnerLoader,
   useCategoriasStore,
   useEmpresaStore,
   useMarcaStore,
   useProductosStore,
+  useUsuariosStore,
 } from "../index";
 
 export function Productos() {
+  const { datapermisos } = useUsuariosStore();
+  const statePermiso = datapermisos.some((objeto) =>
+    objeto.modulos.nombre.includes("Productos")
+  );
+
   const { mostrarMarca } = useMarcaStore();
   const { mostrarcategorias } = useCategoriasStore();
   const { mostrarproductos, dataproductos, buscarproductos, buscador } =
@@ -38,6 +45,9 @@ export function Productos() {
     queryFn: () => mostrarcategorias({ id_empresa: dataempresa?.id }),
     enabled: dataempresa?.id != null,
   });
+  if (statePermiso == false) {
+    return <BloqueoPagina />;
+  }
   if (isLoading) {
     return <SpinnerLoader />;
   }

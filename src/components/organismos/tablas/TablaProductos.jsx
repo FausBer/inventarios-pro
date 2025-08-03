@@ -90,7 +90,7 @@ export function TablaProductos({
       enableSorting: false,
       cell: (info) => (
         <td data-title="Precio Unitario" className="ContentCell">
-          <span>{info.getValue()}</span>
+          <span>${Number(info.getValue()).toLocaleString("es-AR")}</span>
         </td>
       ),
     },

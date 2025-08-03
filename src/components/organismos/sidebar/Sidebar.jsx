@@ -5,21 +5,12 @@ import {
   SecondarylinksArray,
   SidebarCard,
   ToggleTema,
-  useDolarStore,
 } from "../../../index";
 import { v } from "../../../styles/variables";
 import { NavLink } from "react-router-dom";
 // ✅ IMPORTAR EL STORE
 
 export function Sidebar({ state, setState }) {
-  const { cotizacion, cargarCotizacion } = useDolarStore(); // ✅ USAR STORE
-
-  useEffect(() => {
-    cargarCotizacion(); // ✅ CARGAR AL MONTAR
-    const interval = setInterval(cargarCotizacion, 10 * 60 * 1000); // opcional
-    return () => clearInterval(interval);
-  }, [cargarCotizacion]);
-
   return (
     <Main $isopen={state.toString()}>
       <span className="Sidebarbutton" onClick={() => setState(!state)}>
@@ -73,14 +64,6 @@ export function Sidebar({ state, setState }) {
         <Divider />
 
         {state && <SidebarCard />}
-
-        {/* ✅ DÓLAR OFICIAL */}
-        {state && (
-          <CotizacionBox>
-            <h4>💵 Dólar oficial</h4>
-            <p>{cotizacion ? `$${cotizacion}` : "Cargando..."}</p>
-          </CotizacionBox>
-        )}
       </Container>
     </Main>
   );
@@ -218,26 +201,4 @@ const Divider = styled.div`
   width: 100%;
   background: ${(props) => props.theme.bg4};
   margin: ${() => v.lgSpacing} 0;
-`;
-const CotizacionBox = styled.div`
-  background-color: ${(props) => props.theme.bg2}; /* Fondo más claro */
-  border: 1px solid ${(props) => props.theme.bg4};
-  border-radius: 10px;
-  padding: 1rem;
-  margin: 1rem;
-  text-align: center;
-
-  h4 {
-    margin: 0;
-    font-size: 0.95rem;
-    color: ${(props) => props.theme.text};
-    font-weight: 600;
-  }
-
-  p {
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: ${(props) => props.theme.text};
-  }
 `;

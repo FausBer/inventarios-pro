@@ -9,7 +9,7 @@ export function BannerEmpresa() {
       <div className="content-wrapper-context">
         <span className="titulo">
           {<v.iconoempresa />}
-          {dataempresa.empresa?.nombre}
+          {dataempresa?.nombre}
         </span>
         <div className="content-text">
           WBManager te mantiene siempre informado.
@@ -17,7 +17,7 @@ export function BannerEmpresa() {
         <ContentCards>
           <CardDatosEmpresa
             titulo="Moneda"
-            valor={dataempresa.empresa?.simbolomoneda}
+            valor={dataempresa?.simbolomoneda}
           />
 
           <CardDatosEmpresa titulo="Usuarios" valor={contadorusuarios} />
