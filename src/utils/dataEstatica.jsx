@@ -36,6 +36,11 @@ export const LinksArray = [
     icon: <v.iconoreportes />,
     to: "/reportes",
   },
+  {
+    label: "Insumo",
+    icon: <v.iconoinsumos />,
+    to: "/insumo",
+  },
 ];
 export const SecondarylinksArray = [
   {
@@ -88,6 +93,12 @@ export const DataModulosConfiguracion = [
     subtitle: "gestiona tus marcas",
     icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
     link: "/configurar/marca",
+  },
+  {
+    title: "Configuracion Insumo",
+    subtitle: "gestiona tus marcas",
+    icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
+    link: "/configurar/insumoConfig",
   },
 ];
 //tipo usuario

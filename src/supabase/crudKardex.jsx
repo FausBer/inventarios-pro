@@ -25,7 +25,7 @@ export async function EliminarKardex(p) {
   }
 }
 export async function EditarKardex(p) {
-  const { error } = await supabase.from("Kardex").update(p).eq("id", p.id);
+  const { error } = await supabase.from("kardex").update(p).eq("id", p.id);
   if (error) {
     alert("Error al editar Kardex", error.message);
   }
