@@ -1,12 +1,41 @@
+import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 export function ReportesTemplate() {
-  <Container>
-    <Sidebar>
-      <SidebarSection></SidebarSection>
-    </Sidebar>
-  </Container>;
+  return (
+    <Container>
+      <PageContainer>
+        <Content>
+          <Outlet />
+        </Content>
+        <Sidebar>
+          <SidebarSection>
+            <SidebarTitle>Stock Actual</SidebarTitle>
+            <SidebarItem to="stock-actual-por-producto">
+              Por producto
+            </SidebarItem>
+            <SidebarItem to="stock-actual-todos">Todos</SidebarItem>
+            <SidebarItem to="stock-bajo-minimo">Por producto</SidebarItem>
+          </SidebarSection>
+        </Sidebar>
+      </PageContainer>
+    </Container>
+  );
 }
+const Content = styled.div`
+  padding: 90px;
+  border-radius: 8px;
+  margin: 20px;
+  flex: 1;
+`;
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
 const Container = styled.div`
   min-height: 100vh;
   padding: 15px;
@@ -30,4 +59,31 @@ const SidebarSection = styled.div`
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.color2};
   padding: 12px;
+`;
+const SidebarTitle = styled.h3`
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+`;
+
+const SidebarItem = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 0 5%;
+  text-decoration: none;
+  color: ${(props) => props.theme.text};
+  height: 60px;
+  &:hover {
+    color: ${(props) => props.theme.colorSubtitle};
+  }
+  &.active {
+    background: ${(props) => props.theme.bg6};
+    border: 2px solid ${(props) => props.theme.bg5};
+    color: ${(props) => props.theme.color1};
+    font-weight: 600;
+  }
 `;

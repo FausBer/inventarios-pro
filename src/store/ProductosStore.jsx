@@ -5,6 +5,7 @@ import {
   EliminarProductos,
   InsertarProductos,
   MostrarProductos,
+  ReportStockProductosTodos,
 } from "../index";
 export const useProductosStore = create((set, get) => ({
   buscador: "",
@@ -45,5 +46,9 @@ export const useProductosStore = create((set, get) => ({
   buscarproductos: async (p) => {
     const response = await BuscarProductos(p);
     set({ dataproductos: response });
+  },
+  reportStockProductosTodos: async (p) => {
+    const response = await ReportStockProductosTodos(p);
+    return response;
   },
 }));
