@@ -37,7 +37,7 @@ export function Categorias() {
     return <SpinnerLoader />;
   }
   if (error) {
-    return <span>Error...</span>;
+    return <span>Error....</span>;
   }
 
   return <CategoriasTemplate data={datacategorias} />;
