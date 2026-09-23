@@ -5,18 +5,14 @@ export function FooterLogin() {
     <Container>
       <section className="lock">
         <GiPadlock />
-        <span>
-          Esta es una página segura de codigo369. Si tienes dudas sobre la
-          autenticidad de la web, comunícate con
-          <br /> nosotros al 311-9898 o a través de nuestros medios digitales.
-        </span>
+        <span>Esta es una página segura de WBManager.</span>
       </section>
       <section className="derechos">
-        <span>WBManager S.A</span>
+        <span>WBManager</span>
         <div className="separador"></div>
-        <span>Todos los derechos reservados</span>
+        <span></span>
         <div className="separador"></div>
-        <span>© 2023 codigo369.com</span>
+        <span>2026</span>
       </section>
     </Container>
   );

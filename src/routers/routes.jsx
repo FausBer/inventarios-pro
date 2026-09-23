@@ -19,6 +19,7 @@ import {
   InsumoDetalle,
   StockActualTodos,
   StockActualPorProductos,
+  Dashboard,
 } from "../index";
 import { useQuery } from "@tanstack/react-query";
 import { Kardex } from "../pages/Kardex";
@@ -65,6 +66,7 @@ export function MyRoutes() {
         <Route path="/configurar/personal" element={<Usuarios />} />
         <Route path="/configurar/insumoConfig" element={<InsumoConfig />} />
         <Route path="/insumo-detalle/:id" element={<InsumoDetalle />} />
+        <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/kardex" element={<Kardex />}></Route>
         <Route path="/reportes" element={<Reportes />}>
           <Route path="stock-actual-todos" element={<StockActualTodos />} />
