@@ -9,6 +9,7 @@ import {
   Sidebar,
   MenuHambur,
   Login,
+  RestablecerContrasena,
 } from "./index";
 
 import { createContext, useState } from "react";
@@ -29,6 +30,8 @@ function App() {
           <AuthContextProvider>
             {pathname == "/login" ? (
               <Login />
+            ) : pathname == "/restablecer-contrasena" ? (
+              <RestablecerContrasena />
             ) : (
               <Container className={sidebarOpen ? "active" : ""}>
                 <section className="ContentSidebar">

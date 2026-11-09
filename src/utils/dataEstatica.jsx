@@ -27,9 +27,9 @@ export const LinksArray = [
     to: "/",
   },
   {
-    label: "Dashboard",
+    label: "Ensamblaje",
     icon: <v.iconocategorias />,
-    to: "/dashboard",
+    to: "/ensamblaje",
   },
   {
     label: "Kardex",
@@ -42,7 +42,7 @@ export const LinksArray = [
     to: "/reportes",
   },
   {
-    label: "Insumo",
+    label: "Equipos finales",
     icon: <v.iconoinsumos />,
     to: "/insumo",
   },
@@ -70,7 +70,8 @@ export const TemasData = [
 export const DataModulosConfiguracion = [
   {
     title: "Productos",
-    subtitle: "registra tus productos",
+    label: "Insumos y componentes",
+    subtitle: "Gestiona las piezas usadas en cada ensamblaje",
     icono: "https://i.ibb.co/85zJ6yG/caja-del-paquete.png",
     link: "/configurar/productos",
   },
@@ -89,19 +90,22 @@ export const DataModulosConfiguracion = [
   },
   {
     title: "Categoria de productos",
-    subtitle: "asigna categorias a tus productos",
+    label: "Categorías de componentes",
+    subtitle: "Organiza tus insumos y componentes",
     icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
     link: "/configurar/categorias",
   },
   {
     title: "Marca de productos",
-    subtitle: "gestiona tus marcas",
+    label: "Proveedores",
+    subtitle: "Administra los proveedores de tus componentes",
     icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
     link: "/configurar/marca",
   },
   {
     title: "Configuracion Insumo",
-    subtitle: "gestiona tus marcas",
+    label: "Equipos finales",
+    subtitle: "Administra los equipos finales que podés ensamblar",
     icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
     link: "/configurar/insumoConfig",
   },

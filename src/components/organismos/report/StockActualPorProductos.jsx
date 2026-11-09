@@ -136,7 +136,7 @@ function StockActualPorProductos() {
                 <Text>Fecha y hora del reporte: {formattedDate}</Text>
                 <View>
                   {renderTableRow(
-                    { descripcion: "Producto", stock: "Stock" },
+                    { descripcion: "Componente", stock: "Stock" },
                     true
                   )}
                   {data?.map((item) => renderTableRow(item))}

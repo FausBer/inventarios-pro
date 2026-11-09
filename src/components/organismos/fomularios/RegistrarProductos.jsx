@@ -18,6 +18,8 @@ import {
 } from "../../../index";
 import { useForm } from "react-hook-form";
 import { useEmpresaStore } from "../../../store/EmpresaStore";
+import { supabase } from "../../../supabase/supabase.config";
+import Swal from "sweetalert2";
 export function RegistrarProductos({ onClose, dataSelect, accion }) {
   const { insertarproductos, editarproductos } = useProductosStore();
   const { dataempresa } = useEmpresaStore();
@@ -29,6 +31,10 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
   const [openRegistroMarca, SetopenRegistroMarca] = useState(false);
   const [openRegistroCategoria, SetopenRegistroCategoria] = useState(false);
   const [subaccion, setAccion] = useState("");
+  const [insumos, setInsumos] = useState([]);
+  const [insumoFinalId, setInsumoFinalId] = useState("");
+  const [cantidadComponente, setCantidadComponente] = useState("1");
+  const [guardando, setGuardando] = useState(false);
   const nuevoRegistroMarca = () => {
     SetopenRegistroMarca(!openRegistroMarca);
     setAccion("Nuevo");
@@ -42,9 +48,84 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  useEffect(() => {
+    if (!dataempresa?.id) return;
+    let activo = true;
+    async function cargarInsumos() {
+      const { data, error } = await supabase
+        .from("insumo")
+        .select("id, nombre")
+        .eq("id_empresa", dataempresa.id)
+        .order("nombre");
+      if (!activo) return;
+      if (error) {
+        Swal.fire("Error", `No se pudieron cargar los equipos finales: ${error.message}`, "error");
+        return;
+      }
+      setInsumos(data ?? []);
+    }
+    cargarInsumos();
+    return () => { activo = false; };
+  }, [dataempresa?.id]);
+
+  useEffect(() => {
+    if (accion !== "Editar" || !dataSelect?.id) return;
+    let activo = true;
+    async function cargarAsignacion() {
+      const { data, error } = await supabase
+        .from("productos_insumo")
+        .select("id_insumo, cantidad")
+        .eq("id_producto", dataSelect.id)
+        .order("id");
+      if (!activo) return;
+      if (error) {
+        Swal.fire("Error", `No se pudo cargar la asignación: ${error.message}`, "error");
+        return;
+      }
+      if (data?.length) {
+        setInsumoFinalId(String(data[0].id_insumo));
+        setCantidadComponente(String(data[0].cantidad));
+      }
+    }
+    cargarAsignacion();
+    return () => { activo = false; };
+  }, [accion, dataSelect?.id]);
+
+  async function guardarAsignacion(idProducto) {
+    const asignacion = {
+      id_producto: idProducto,
+      id_insumo: Number(insumoFinalId),
+      cantidad: Number(cantidadComponente),
+    };
+    const { data: asignaciones, error: buscarError } = await supabase
+      .from("productos_insumo")
+      .select("id, id_insumo")
+      .eq("id_producto", idProducto);
+    if (buscarError) throw buscarError;
+
+    const asignacionExistente = asignaciones?.find(
+      (item) => Number(item.id_insumo) === asignacion.id_insumo,
+    );
+    const resultado = asignacionExistente
+      ? await supabase.from("productos_insumo").update({ cantidad: asignacion.cantidad }).eq("id", asignacionExistente.id)
+      : asignaciones?.length === 1
+      ? await supabase.from("productos_insumo").update({
+          id_insumo: asignacion.id_insumo,
+          cantidad: asignacion.cantidad,
+        }).eq("id", asignaciones[0].id)
+      : await supabase.from("productos_insumo").insert(asignacion);
+    if (resultado.error) throw resultado.error;
+  }
+
   async function insertar(data) {
-    if (accion === "Editar") {
-      const p = {
+    if (!insumoFinalId || !Number.isFinite(Number(cantidadComponente)) || Number(cantidadComponente) <= 0) {
+      Swal.fire("Asignación requerida", "Seleccioná el equipo final e indicá una cantidad mayor a cero.", "warning");
+      return;
+    }
+    setGuardando(true);
+    try {
+      if (accion === "Editar") {
+        const p = {
         id: dataSelect.id,
         descripcion: ConvertirCapitalize(data.descripcion),
         idmarca: marcaItemSelect.id,
@@ -58,9 +139,9 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
         id_empresa: dataempresa.id,
       };
       await editarproductos(p);
-      onClose();
-    } else {
-      const p = {
+      await guardarAsignacion(dataSelect.id);
+      } else {
+        const p = {
         _descripcion: ConvertirCapitalize(data.descripcion),
         _idmarca: marcaItemSelect.id,
         _stock: parseFloat(data.stock),
@@ -72,8 +153,31 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
         _id_categoria: categoriasItemSelect.id,
         _id_empresa: dataempresa.id,
       };
-      await insertarproductos(p);
+      const resultado = await insertarproductos(p);
+      const fila = Array.isArray(resultado) ? resultado[0] : resultado;
+      let idProducto = typeof fila === "number" ? fila : fila?.id;
+      if (!idProducto) {
+        const { data: encontrado, error } = await supabase
+          .from("productos")
+          .select("id")
+          .eq("id_empresa", dataempresa.id)
+          .eq("codigointerno", data.codigointerno)
+          .order("id", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (error) throw error;
+        idProducto = encontrado?.id;
+      }
+      if (!idProducto) {
+        throw new Error("El componente se creó, pero no se pudo obtener su ID para asignarlo al equipo final.");
+      }
+      await guardarAsignacion(idProducto);
+      }
       onClose();
+    } catch (error) {
+      Swal.fire("No se pudo guardar la asignación", error.message || "Ocurrió un error inesperado.", "error");
+    } finally {
+      setGuardando(false);
     }
   }
   useEffect(() => {
@@ -84,7 +188,7 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
         descripcion: dataSelect.categoria,
       });
     }
-  }, []);
+  }, [accion, dataSelect, selectMarca, selectcategorias]);
   return (
     <Container>
       <div className="sub-contenedor">
@@ -92,8 +196,8 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
           <section>
             <h1>
               {accion == "Editar"
-                ? "Editar productos"
-                : "Registrar nuevo producto"}
+                ? "Editar componente"
+                : "Registrar nuevo componente"}
             </h1>
           </section>
 
@@ -115,12 +219,12 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
                     required: true,
                   })}
                 />
-                <label className="form__label">descripcion</label>
+                <label className="form__label">Nombre del componente</label>
                 {errors.nombre?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
             <ContainerSelector>
-              <label>Marca: </label>
+              <label>Proveedor: </label>
               <Selector
                 funcion={() => setStateMarca(!stateMarca)}
                 state={stateMarca}
@@ -156,7 +260,7 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
                     required: true,
                   })}
                 />
-                <label className="form__label">Stock</label>
+                <label className="form__label">Stock del componente</label>
                 {errors.stock?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>
@@ -279,11 +383,36 @@ export function RegistrarProductos({ onClose, dataSelect, accion }) {
                 )}
               </InputText>
             </article>
+            <article className="asignacionInsumo">
+              <label htmlFor="insumo-final">Equipo final al que pertenece este componente</label>
+              <select
+                id="insumo-final"
+                value={insumoFinalId}
+                onChange={(event) => setInsumoFinalId(event.target.value)}
+                required
+              >
+                <option value="">Seleccionar equipo final</option>
+                {insumos.map((insumo) => (
+                  <option key={insumo.id} value={insumo.id}>{insumo.nombre}</option>
+                ))}
+              </select>
+              {insumos.length === 0 && <small>No hay equipos finales registrados para esta empresa.</small>}
+              <label htmlFor="cantidad-componente">Cantidad de este componente por equipo</label>
+              <input
+                id="cantidad-componente"
+                type="number"
+                min="0.001"
+                step="0.001"
+                value={cantidadComponente}
+                onChange={(event) => setCantidadComponente(event.target.value)}
+                required
+              />
+            </article>
           </section>
           <div className="btnguardarContent">
             <Btnsave
               icono={<v.iconoguardar />}
-              titulo="Guardar"
+              titulo={guardando ? "Guardando…" : "Guardar"}
               bgcolor="#ef552b"
             />
           </div>
@@ -365,6 +494,20 @@ const Container = styled.div`
         gap: 20px;
         display: flex;
         flex-direction: column;
+      }
+      .asignacionInsumo {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        label { font-weight: 600; }
+        select, input {
+          min-height: 42px;
+          padding: 8px 10px;
+          border: 1px solid #9b9b9b;
+          border-radius: 7px;
+          background: ${({ theme }) => theme.bgtotal};
+          color: ${({ theme }) => theme.text};
+        }
       }
       .btnguardarContent {
         display: flex;

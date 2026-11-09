@@ -40,7 +40,7 @@ export function ProductosTemplate({ data }) {
       </header>
       <section className="area1">
         <ContentFiltro>
-          <Title>Insumos</Title>
+          <Title>Insumos y componentes</Title>
           <Btnfiltro
             funcion={nuevoRegistro}
             bgcolor="#f6f3f3"

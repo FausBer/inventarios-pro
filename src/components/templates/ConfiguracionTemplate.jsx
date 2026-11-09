@@ -23,7 +23,7 @@ export function ConfiguracionTemplate() {
                   <div class="card-info">
                     <i class="fa-duotone fa-unicorn"></i>
                     <div class="card-info-title">
-                      <h3>{item.title}</h3>
+                        <h3>{item.label || item.title}</h3>
                       <h4>{item.subtitle}</h4>
                     </div>
                   </div>

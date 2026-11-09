@@ -62,8 +62,8 @@ export function InsumoDetalle() {
   if (!insumoSeleccionado) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
-        <h2>Insumo no encontrado</h2>
-        <p>El insumo con ID {id} no existe o no pertenece a esta empresa.</p>
+        <h2>Equipo final no encontrado</h2>
+        <p>El equipo final con ID {id} no existe o no pertenece a esta empresa.</p>
       </div>
     );
   }

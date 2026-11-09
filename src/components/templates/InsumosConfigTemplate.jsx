@@ -44,7 +44,7 @@ export function InsumoConfigTemplate({ data }) {
 
       <section className="area1">
         <ContentFiltro>
-          <Title>Configuración de Insumos</Title>
+          <Title>Configuración de equipos finales</Title>
           <Btnfiltro
             funcion={nuevoRegistro}
             bgcolor="#f6f3f3"

@@ -1,7 +1,28 @@
 import styled from "styled-components";
-import { v, Btnsave } from "../../../index";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { v } from "../../../styles/variables";
+import { useAuthStore } from "../../../store/AuthStore";
 export function SidebarCard() {
-  
+  const navigate = useNavigate();
+  const signOut = useAuthStore((state) => state.signOut);
+  const [cerrando, setCerrando] = useState(false);
+  const [error, setError] = useState("");
+
+  async function cerrarSesion() {
+    if (cerrando) return;
+    setCerrando(true);
+    setError("");
+    try {
+      await signOut();
+      navigate("/login", { replace: true });
+    } catch (err) {
+      setError(err.message || "No se pudo cerrar la sesión.");
+    } finally {
+      setCerrando(false);
+    }
+  }
+
   return (
     <Container>
       <span className="icon">{<v.iconoayuda />}</span>
@@ -10,7 +31,10 @@ export function SidebarCard() {
         <div className="circle2"></div>
         <h3>Cerrar sesión</h3>
         <div className="contentBtn">
-          <Btnsave titulo="Cerrar ..." bgcolor="#f8f2fd"  />
+          <button type="button" onClick={cerrarSesion} disabled={cerrando}>
+            {cerrando ? "Cerrando…" : "Cerrar sesión"}
+          </button>
+          {error && <p role="alert">{error}</p>}
         </div>
       </div>
     </Container>
@@ -68,6 +92,17 @@ const Container = styled.div`
     .contentBtn {
       position:relative;
       margin-left:-8px;
+      button {
+        border: 0;
+        border-radius: 7px;
+        padding: 10px 14px;
+        background: #f8f2fd;
+        color: #222;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button:disabled { opacity: .65; cursor: wait; }
+      p { color: #7d1717; font-size: .8rem; overflow-wrap: anywhere; }
     }
   }
 `;

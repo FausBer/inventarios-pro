@@ -68,7 +68,7 @@ function StockActualTodos() {
   return (
     <Container>
       <PDFViewer className="pdfviewer">
-        <Document title="Reporte de stock todos">
+        <Document title="Reporte de stock de componentes">
           <Page size="A4" orientation="portrait">
             <View style={styles.page}>
               <View style={styles.section}>
@@ -79,12 +79,12 @@ function StockActualTodos() {
                     marginBottom: 10,
                   }}
                 >
-                  Stock actual todos
+                  Stock actual de componentes
                 </Text>
                 <Text>Fecha y hora del reporte: {formattedDate}</Text>
                 <View>
                   {renderTableRow(
-                    { descripcion: "Producto", stock: "Stock" },
+                    { descripcion: "Componente", stock: "Stock" },
                     true
                   )}
                   {data?.map((item) => renderTableRow(item))}

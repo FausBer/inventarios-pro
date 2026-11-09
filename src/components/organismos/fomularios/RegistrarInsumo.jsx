@@ -52,7 +52,7 @@ export function RegistrarInsumo({ onClose, dataSelect, accion }) {
         <div className="headers">
           <section>
             <h1>
-              {accion === "Editar" ? "Editar insumo" : "Registrar nuevo insumo"}
+              {accion === "Editar" ? "Editar equipo final" : "Registrar equipo final"}
             </h1>
           </section>
 

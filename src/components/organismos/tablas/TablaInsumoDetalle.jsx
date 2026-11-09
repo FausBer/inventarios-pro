@@ -24,7 +24,7 @@ export function TablaInsumoDetalle({ productos, tienePermisoCostos = false }) {
   const columns = [
     {
       accessorKey: "descripcion",
-      header: "Producto",
+      header: "Componente / insumo",
     },
     {
       accessorKey: "cantidad",
@@ -108,9 +108,9 @@ export function TablaInsumoDetalle({ productos, tienePermisoCostos = false }) {
     <Container>
       {tienePermisoCostos && (
         <div style={{ marginTop: "1rem", fontWeight: "bold" }}>
-          Total Insumo: ${totalInsumoARS.toLocaleString("es-AR")} ARS
+          Costo total de componentes: ${totalInsumoARS.toLocaleString("es-AR")} ARS
           <br />
-          Total Insumo:{" "}
+          Costo total de componentes:{" "}
           {totalInsumoUSD !== "-" ? `$${totalInsumoUSD}` : "Cargando..."} USD
         </div>
       )}

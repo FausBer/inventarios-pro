@@ -10,12 +10,18 @@ export function ReportesTemplate() {
         </Content>
         <Sidebar>
           <SidebarSection>
-            <SidebarTitle>Stock Actual</SidebarTitle>
+            <SidebarTitle>Reportes</SidebarTitle>
+            <SidebarItem to="" end>
+              Producción y consumo
+            </SidebarItem>
+          </SidebarSection>
+          <SidebarSection>
+            <SidebarTitle>Stock actual</SidebarTitle>
             <SidebarItem to="stock-actual-por-producto">
-              Por producto
+              Por componente
             </SidebarItem>
             <SidebarItem to="stock-actual-todos">Todos</SidebarItem>
-            <SidebarItem to="stock-bajo-minimo">Por producto</SidebarItem>
+            <SidebarItem to="stock-bajo-minimo">Componentes bajo mínimo</SidebarItem>
           </SidebarSection>
         </Sidebar>
       </PageContainer>
@@ -23,7 +29,7 @@ export function ReportesTemplate() {
   );
 }
 const Content = styled.div`
-  padding: 90px;
+  padding: 20px;
   border-radius: 8px;
   margin: 20px;
   flex: 1;

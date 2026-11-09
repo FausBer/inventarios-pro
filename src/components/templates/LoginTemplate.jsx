@@ -18,16 +18,22 @@ import { ThemeContext } from "../../App";
 export function LoginTemplate() {
   const { setTheme } = useContext(ThemeContext);
   setTheme("light");
-  const { signInWithEmail } = useAuthStore();
+  const { signInWithEmail, solicitarRestablecimiento } = useAuthStore();
   const [state, setState] = useState(false);
   const [stateInicio, setStateInicio] = useState(false);
+  const [mensajeRecuperacion, setMensajeRecuperacion] = useState("");
+  const [errorRecuperacion, setErrorRecuperacion] = useState("");
+  const [cargandoRecuperacion, setCargandoRecuperacion] = useState(false);
   const navigate = useNavigate();
   const {
     register,
+    getValues,
+    trigger,
     formState: { errors },
     handleSubmit,
   } = useForm();
   async function iniciar(data) {
+    setStateInicio(false);
     const response = await signInWithEmail({
       correo: data.correo,
       pass: data.pass,
@@ -37,6 +43,28 @@ export function LoginTemplate() {
     } else {
       setStateInicio(true);
     }
+  }
+
+  async function recuperarContrasena(data) {
+    setCargandoRecuperacion(true);
+    setMensajeRecuperacion("");
+    setErrorRecuperacion("");
+    try {
+      await solicitarRestablecimiento({
+        correo: data.correo,
+        redirectTo: `${window.location.origin}/restablecer-contrasena`,
+      });
+      setMensajeRecuperacion("Si existe una cuenta con ese correo, recibirás un enlace para cambiar la contraseña.");
+    } catch (error) {
+      setErrorRecuperacion(error.message || "No se pudo solicitar el cambio de contraseña.");
+    } finally {
+      setCargandoRecuperacion(false);
+    }
+  }
+
+  async function solicitarRecuperacion() {
+    const correoValido = await trigger("correo");
+    if (correoValido) await recuperarContrasena(getValues());
   }
 
   return (
@@ -66,14 +94,16 @@ export function LoginTemplate() {
             <InputText icono={<v.iconoemail />}>
               <input
                 className="form__field"
-                type="text"
+                type="email"
                 placeholder="email"
                 {...register("correo", {
                   required: true,
+                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 })}
               />
               <label className="form__label">email</label>
               {errors.correo?.type === "required" && <p>Campo requerido</p>}
+              {errors.correo?.type === "pattern" && <p>Ingresá un correo válido</p>}
             </InputText>
             <InputText icono={<v.iconopass />}>
               <input
@@ -87,6 +117,16 @@ export function LoginTemplate() {
               <label className="form__label">pass</label>
               {errors.pass?.type === "required" && <p>Campo requerido</p>}
             </InputText>
+            <button
+              className="forgot-password"
+              type="button"
+              onClick={solicitarRecuperacion}
+              disabled={cargandoRecuperacion}
+            >
+              {cargandoRecuperacion ? "Enviando…" : "Olvidé mi contraseña"}
+            </button>
+            {mensajeRecuperacion && <p className="recovery-success" role="status">{mensajeRecuperacion}</p>}
+            {errorRecuperacion && <p className="recovery-error" role="alert">{errorRecuperacion}</p>}
             <ContainerBtn>
               <Btnsave titulo="Iniciar" bgcolor="#fc6b32" />
               <Btnsave
@@ -191,6 +231,19 @@ const Container = styled.div`
       font-weight: 700;
       margin-bottom: 30px;
     }
+    .forgot-password {
+      display: block;
+      margin: 4px auto 0;
+      border: 0;
+      background: transparent;
+      color: #c94e2b;
+      text-decoration: underline;
+      cursor: pointer;
+      font: inherit;
+    }
+    .forgot-password:disabled { opacity: .6; cursor: wait; }
+    .recovery-success { color: #24894d; }
+    .recovery-error { color: #bd3434; }
     .ayuda {
       position: absolute;
       top: 15px;

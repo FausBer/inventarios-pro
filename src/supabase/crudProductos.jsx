@@ -2,7 +2,7 @@ import { supabase } from "../index";
 import Swal from "sweetalert2";
 const tabla = "productos";
 export async function InsertarProductos(p) {
-  const { error } = await supabase.rpc("insertarproductos", p);
+  const { data, error } = await supabase.rpc("insertarproductos", p);
   if (error) {
     Swal.fire({
       icon: "error",
@@ -10,7 +10,9 @@ export async function InsertarProductos(p) {
       text: error.message,
       footer: '<a href="">Agregue una nueva descripcion</a>',
     });
+    throw error;
   }
+  return data;
 }
 
 export async function MostrarProductos(p) {

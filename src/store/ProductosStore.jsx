@@ -26,10 +26,11 @@ export const useProductosStore = create((set, get) => ({
     set({ productosItemSelect: p });
   },
   insertarproductos: async (p) => {
-    await InsertarProductos(p);
+    const resultado = await InsertarProductos(p);
     const { mostrarproductos } = get();
     const { parametros } = get();
-    set(mostrarproductos(parametros));
+    await mostrarproductos(parametros);
+    return resultado;
   },
   eliminarproductos: async (p) => {
     await EliminarProductos(p);

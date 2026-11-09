@@ -57,6 +57,7 @@ export function RegistrarKardex({ onClose, dataSelect, accion, tipo }) {
           </section>
         </div>
         <div className="contentBuscador">
+          <label>Buscar componente o insumo</label>
           <div onClick={() => SetstateListaProd(!stateListaProd)}>
             <Buscador setBuscador={setBuscador} />
           </div>

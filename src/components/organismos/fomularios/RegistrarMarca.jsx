@@ -48,7 +48,7 @@ export function RegistrarMarca({ onClose, dataSelect, accion }) {
         <div className="headers">
           <section>
             <h1>
-              {accion == "Editar" ? "Editar marca" : "Registrar nueva marca"}
+              {accion == "Editar" ? "Editar proveedor" : "Registrar proveedor"}
             </h1>
           </section>
 
@@ -70,7 +70,7 @@ export function RegistrarMarca({ onClose, dataSelect, accion }) {
                     required: true,
                   })}
                 />
-                <label className="form__label">Empresa</label>
+                <label className="form__label">Razón social</label>
                 {errors.nombre?.type === "required" && <p>Campo requerido</p>}
               </InputText>
             </article>

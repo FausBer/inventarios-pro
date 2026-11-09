@@ -65,9 +65,9 @@ export function TablaKardex({
   const columns = [
     {
       accessorKey: "descripcion",
-      header: "Producto",
+      header: "Componente",
       cell: (info) => (
-        <td data-title="Producto" className="ContentCell">
+        <td data-title="Componente" className="ContentCell">
           <span
             style={{
               textDecoration:

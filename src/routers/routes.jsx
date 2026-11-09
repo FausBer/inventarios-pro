@@ -19,39 +19,51 @@ import {
   InsumoDetalle,
   StockActualTodos,
   StockActualPorProductos,
-  Dashboard,
+  ReporteOperativo,
+  Ensamblaje,
+  EmpresaConfig,
 } from "../index";
 import { useQuery } from "@tanstack/react-query";
 import { Kardex } from "../pages/Kardex";
 
 export function MyRoutes() {
   const { user } = UserAuth();
-  const { mostrarUsuarios, idusuario, mostrarpermisos } = useUsuariosStore();
+  const { mostrarUsuarios, mostrarpermisos } = useUsuariosStore();
   const { mostrarEmpresa } = useEmpresaStore();
   const {
     data: datausuarios,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["mostrar usuarios"],
+    queryKey: ["mostrar usuarios", user?.id],
     queryFn: mostrarUsuarios,
+    enabled: !!user?.id,
   });
-  const { data: dataempresa } = useQuery({
-    queryKey: ["mostrar empresa"],
-    queryFn: () => mostrarEmpresa({ idusaurio: idusuario }),
-    enabled: !!datausuarios,
+  const {
+    data: empresaActiva,
+    isLoading: cargandoEmpresa,
+    error: errorEmpresa,
+  } = useQuery({
+    queryKey: ["mostrar empresa", user?.id, datausuarios?.id],
+    queryFn: () => mostrarEmpresa({ idusaurio: datausuarios.id }),
+    enabled: !!user?.id && !!datausuarios?.id,
   });
-  const { data: datapermisos } = useQuery({
-    queryKey: ["mostrar permisos", { id_usuario: idusuario }],
-    queryFn: () => mostrarpermisos({ id_usuario: idusuario }),
-    enabled: !!datausuarios,
+  const { isLoading: cargandoPermisos, error: errorPermisos } = useQuery({
+    queryKey: ["mostrar permisos", user?.id, datausuarios?.id],
+    queryFn: () => mostrarpermisos({ id_usuario: datausuarios.id }),
+    enabled: !!user?.id && !!datausuarios?.id,
   });
 
-  if (isLoading) {
+  if (user && (isLoading || cargandoEmpresa || cargandoPermisos)) {
     return <SpinnerLoader />;
   }
-  if (error) {
-    return <ErrorMolecula mensaje={error.message} />;
+  if (user && (error || errorEmpresa || errorPermisos)) {
+    return <ErrorMolecula mensaje={(error || errorEmpresa || errorPermisos).message} />;
+  }
+  if (user && datausuarios && !empresaActiva) {
+    return (
+      <ErrorMolecula mensaje="Este usuario todavía no tiene una empresa asociada. Verificá el alta de la empresa y la asignación del usuario." />
+    );
   }
   return (
     <Routes>
@@ -64,11 +76,13 @@ export function MyRoutes() {
         <Route path="/configurar/categorias" element={<Categorias />} />
         <Route path="/configurar/productos" element={<Productos />} />
         <Route path="/configurar/personal" element={<Usuarios />} />
+        <Route path="/configurar/empresa" element={<EmpresaConfig />} />
         <Route path="/configurar/insumoConfig" element={<InsumoConfig />} />
         <Route path="/insumo-detalle/:id" element={<InsumoDetalle />} />
-        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/ensamblaje" element={<Ensamblaje />} />
         <Route path="/kardex" element={<Kardex />}></Route>
         <Route path="/reportes" element={<Reportes />}>
+          <Route index element={<ReporteOperativo />} />
           <Route path="stock-actual-todos" element={<StockActualTodos />} />
           <Route
             path="stock-actual-por-producto"

@@ -36,7 +36,7 @@ export function InsumoTemplate({ data }) {
 
       <section className="area1">
         <ContentFiltro>
-          <Title>Insumos</Title>
+          <Title>Equipos finales</Title>
         </ContentFiltro>
       </section>
 
