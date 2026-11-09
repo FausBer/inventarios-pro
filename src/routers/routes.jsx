@@ -27,7 +27,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Kardex } from "../pages/Kardex";
 
 export function MyRoutes() {
-  const { user } = UserAuth();
+  const { user, authReady } = UserAuth();
   const { mostrarUsuarios, mostrarpermisos } = useUsuariosStore();
   const { mostrarEmpresa } = useEmpresaStore();
   const {
@@ -53,6 +53,10 @@ export function MyRoutes() {
     queryFn: () => mostrarpermisos({ id_usuario: datausuarios.id }),
     enabled: !!user?.id && !!datausuarios?.id,
   });
+
+  // Supabase restores the persisted session asynchronously. Don't redirect to
+  // login or mount protected pages until that first auth result has arrived.
+  if (!authReady) return <SpinnerLoader />;
 
   if (user && (isLoading || cargandoEmpresa || cargandoPermisos)) {
     return <SpinnerLoader />;
