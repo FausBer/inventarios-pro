@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import {
   Configuracion,
   ErrorMolecula,
@@ -96,6 +96,7 @@ export function MyRoutes() {
 
         <Route path="/insumo" element={<Insumo />} />
       </Route>
+      <Route path="*" element={<Navigate replace to={user ? "/" : "/login"} />} />
     </Routes>
   );
 }
